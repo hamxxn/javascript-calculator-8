@@ -40,6 +40,10 @@ class StringParser {
 
     return str.split(/[,:]+/);
   }
+
+  add(nums) {
+    return nums.reduce((acc, v) => acc + v, 0);
+  }
 }
 
 export default StringParser;
