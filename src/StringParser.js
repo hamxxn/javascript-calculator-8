@@ -13,6 +13,10 @@ class StringParser {
     return this.add(numbers);
   }
 
+  getCustomNumberRegex(delimiter) {
+    return new RegExp(`^[1-9]\\d*(?:[${delimiter}]+[1-9]\\d*)*$`);
+  }
+
   validateInputFormat(input) {
     if (input.startsWith(CUSTOM_DELIMITER.START)) {
       if (!REGEX_PATTERNS.CUSTOM_DELIMITER_FORMAT.test(input)) {
@@ -24,9 +28,7 @@ class StringParser {
         const delimiter = match[1];
         const numbersPart = match[2];
         if (numbersPart) {
-          const customNumbersRegex = new RegExp(
-            `^[1-9]\\d*(?:[${delimiter}]+[1-9]\\d*)*$`
-          );
+          const customNumbersRegex = this.getCustomNumberRegex(delimiter);
           if (!customNumbersRegex.test(numbersPart)) {
             throw new Error(ERROR_MESSAGES.INVALID_INPUT);
           }
