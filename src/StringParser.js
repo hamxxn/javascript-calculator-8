@@ -2,6 +2,17 @@ import { ERROR_MESSAGES } from "./constant/error.js";
 import { REGEX_PATTERNS } from "./constant/regex.js";
 
 class StringParser {
+  calculate(input) {
+    if (input == null || input.trim() === "") return 0;
+
+    this.validateInputFormat(input);
+
+    const tokens = this.splitNumbers(input);
+    const numbers = tokens.map((s) => Number(s.trim()));
+
+    return this.add(numbers);
+  }
+
   validateInputFormat(input) {
     if (input.startsWith("//")) {
       if (!REGEX_PATTERNS.CUSTOM_DELIMITER_FORMAT.test(input)) {
