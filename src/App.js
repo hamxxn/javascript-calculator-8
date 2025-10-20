@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import IOHandler from "./IOHandler.js";
 import StringParser from "./StringParser.js";
 
@@ -9,15 +8,10 @@ class App {
   }
 
   async run() {
-    try {
-      const input = await this.ioHandler.input();
-      const result = this.stringParser.calculate(input);
+    const input = await this.ioHandler.input();
+    const result = this.stringParser.calculate(input);
 
-      await this.ioHandler.print(result);
-    } catch (error) {
-      Console.print(error.message);
-      throw error;
-    }
+    await this.ioHandler.print(result);
   }
 }
 
