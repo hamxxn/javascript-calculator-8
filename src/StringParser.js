@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from "./constant/error.js";
-import { REGEX_PATTERNS } from "./constant/regex.js";
+import { CUSTOM_DELIMITER, REGEX_PATTERNS } from "./constant/regex.js";
 
 class StringParser {
   calculate(input) {
@@ -14,7 +14,7 @@ class StringParser {
   }
 
   validateInputFormat(input) {
-    if (input.startsWith("//")) {
+    if (input.startsWith(CUSTOM_DELIMITER.START)) {
       if (!REGEX_PATTERNS.CUSTOM_DELIMITER_FORMAT.test(input)) {
         throw new Error(ERROR_MESSAGES.INVALID_CUSTOM_DELIMITER);
       }
@@ -40,7 +40,10 @@ class StringParser {
   }
 
   splitNumbers(str) {
-    if (str.startsWith("//") && str.includes("\\n")) {
+    if (
+      str.startsWith(CUSTOM_DELIMITER.START) &&
+      str.includes(CUSTOM_DELIMITER.END)
+    ) {
       const match = str.match(REGEX_PATTERNS.CUSTOM_DELIMITER_FORMAT);
 
       const delimiter = match[1];
