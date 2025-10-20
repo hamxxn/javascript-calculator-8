@@ -27,6 +27,19 @@ class StringParser {
       }
     }
   }
+
+  splitNumbers(str) {
+    if (str.startsWith("//") && str.includes("\\n")) {
+      const match = str.match(REGEX_PATTERNS.CUSTOM_DELIMITER_FORMAT);
+
+      const delimiter = match[1];
+      const body = match[2] || "";
+
+      return body ? body.split(delimiter) : [];
+    }
+
+    return str.split(/[,:]+/);
+  }
 }
 
 export default StringParser;
